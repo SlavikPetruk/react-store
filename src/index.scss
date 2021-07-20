@@ -1,13 +1,20 @@
-
 body {
   margin: 0;
   font-family: 'Inter', system-ui;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(270deg, #77b69a, #4d87b6, #b0635e);
+  background-size: 600% 600%;
+  -webkit-animation: AnimationName 30s ease infinite;
+  -moz-animation: AnimationName 30s ease infinite;
+  animation: AnimationName 30s ease infinite;
+}
+@keyframes AnimationName {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
 }
 
 .wrapper {
-  background: rgb(186, 235, 255);
+  background: rgba(186, 235, 255, 0.3);
   box-shadow: 0 10px 20px rgba(0,0,0,0.4);
   border-radius: 10px;
   width: 1080px;
@@ -27,18 +34,26 @@ header{
     align-items: center;
   }
 
-  .headerRight ul {
-    display: flex;
-    list-style-type: none;
-    
-    li {
-      margin-left: 20px;
-
-      span {
-        margin-left: 5px;
+  .headerRight {
+    svg{
+      cursor: pointer;
+      color:#067;
+      font-size: 30px;
+    }
+    ul {
+      display: flex;
+      list-style-type: none;  
+      
+      li {
+        margin-left: 20px;
+        color: #067;
+  
+        span {
+          margin-left: 5px;
+        }
       }
     }
-  }
+  } 
 
   img{
     margin-right: 15px;
@@ -49,32 +64,33 @@ header{
 }
 .content{
   padding: 30px;
+
+  .search-block{
+    opacity: 0.8;
+    border: 1px solid #f3f3f3;
+    background: rgba(255, 255, 255, 0.4);
+    padding: 10px;
+    border-radius: 15px;
+    display: flex;
+    height: 40px;
+    position: relative;
+
+    .clear {
+      right: 0;
+      top: 15px;
+      margin-right: 10px;
+      color: #e1f1ff;
+      position: absolute;
+    }
+
+    input{
+      height: 20px;
+      background: rgba(255, 255, 255, 0.01);
+      justify-content: space-between;
+      border: 0;
+      padding: 10px;
+      font-size: 16px;
+    }
+  }
 }
 
-.card{
-  display: inline-block;
-  align-items: center;
-  border: 1px solid #f3f3f3;
-  width: 180px;
-  padding: 20px;
-  margin: 15px;
-  border-radius: 40px;
-
-  h5 {
-    font-weight: 400;
-    font-size: 14px;
-  }
-
-  span {
-    opacity: 0.5;
-    font-size: 13px;
-  }
-  price {
-    display: grid;
-    grid-template-rows: 1fr 1fr; 
-  }
-
-  img {
-    width: 125px;
-  }
-}

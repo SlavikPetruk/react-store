@@ -1,0 +1,10 @@
+[
+    {"id":1, "price":3500,  "title":"JBL TUNE 660 NC White (JBLT660NCWHT)","image":"./images/headphones/1.jpg"},
+    {"id":2, "price":4650,  "title":"Bang & Olufsen Beoplay H9 3rd Gen","image":"./images/headphones/2.jpg"},
+    {"id":3, "price":2999,  "title":"SteelSeries Arctis 3 White Edition","image":"./images/headphones/3.jpg"},
+    {"id":4, "price":5999,  "title":"AKG K495 NC 10-28000 Гц Edition","image":"./images/headphones/4.jpg"},
+    {"id":5, "price":5700,  "title":"Adidas Headphones RPT-01 Bluetooth Signal Coral","image":"./images/headphones/5.jpg"},
+    {"id":6, "price":12300, "title":"Grado SR 325e Prestige Series ","image":"./images/headphones/6.jpg"},
+    {"id":7, "price":4800,  "title":"AKG K167 TIESTO Edition 15-23000 Гц","image":"./images/headphones/7.jpg"},
+    {"id":8, "price":11200, "title":"Sennheiser RS 185 (505564) Black","image":"./images/headphones/8.jpg"}
+]

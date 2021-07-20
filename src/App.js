@@ -1,91 +1,67 @@
-import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
-import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
-import AddBoxOutlinedIcon from '@material-ui/icons/AddBoxOutlined';
+import React from 'react';
+import axios from 'axios';
+import Overlay from './components/Overlay';
+import Header from './components/Header';
+import Home from './Pages/Home';
+import Favorite from './Pages/Favorite';
+
+import { Route } from 'react-router-dom';
+
 
 function App() {
+  const [cartItems, setCartItems] = React.useState([]);    //cart items
+  const [cartOpen, setCartOpen] = React.useState(false);   //cart open
+  const [items,setItems] = React.useState([]);             //conteiner items
+  const [searchValue, setSearchValue] = React.useState('') //searchBar
+
+  const onChangeSearchInput = (event) =>{
+      setSearchValue(event.target.value);};
+
+  const [favorite, setFavorite] = React.useState([]);
+  const onAddToFavorite = (obj) => {
+      axios.post('https://60ecb1dca78dc700178adbfe.mockapi.io/favorites', obj);
+      setFavorite ((prev) =>[...prev,obj]);
+    };
+
+  React.useEffect(()=>{
+  axios.get('https://60ecb1dca78dc700178adbfe.mockapi.io/items').then((res)=>{
+    setItems(res.data)})
+  axios.get('https://60ecb1dca78dc700178adbfe.mockapi.io/cart').then((res)=>{
+    setCartItems(res.data)})
+  axios.get('https://60ecb1dca78dc700178adbfe.mockapi.io/favorites').then((res)=>{
+    setFavorite(res.data)})
+  },[]);
+
+const onAddToCart = (obj) => {
+  axios.post('https://60ecb1dca78dc700178adbfe.mockapi.io/cart',obj);
+  setCartItems ((prev) =>[...prev,obj]);
+};
+
+const onRemoveItem = (id) => {
+  axios.delete(`https://60ecb1dca78dc700178adbfe.mockapi.io/cart${id}`)
+  setCartItems((prev) => prev.filter((itemd) => itemd.id !== id ));
+};
+
   return (
     <div className="wrapper">
-      <header>
-        <div className="headerLeft">
-          <img src="https://images.discordapp.net/avatars/711610119410024519/80efbf2dbb04b6133acf823924f2b291.png?size=128" style={{borderRadius:"70px"}}/>
-          <div className="headerInfo"> 
-            <h3>React Store</h3>
-            <p>MEGA ONLINE STORE</p>
-          </div>
-        </div>
-
-        <div className="headerRight">
-          <ul>
-            <li>
-              <ShoppingCartOutlinedIcon />
-              <span>999$</span>
-            </li>
-            <li>
-            <AccountCircleOutlinedIcon />
-            </li>
-          </ul>
-        </div>
-
-      </header>
-
-      <div className="content">
-        <h1>Всі наушники</h1>
-          <div className="card">
-            <img src="https://media.croma.com/image/upload/f_auto,q_auto,d_Croma%20Assets:no-product-image.jpg,h_256,w_256/v1605169519/Croma%20Assets/Entertainment/Headphones%20and%20Earphones/Images/8944859512862.png"/>
-            <h5>AKG Y500 Wireless Headphone</h5>
-            <div>
-              <div>
-                <span>Price:</span>
-                <p><b>5 000 hrn</b></p>
-              </div>
-              <AddBoxOutlinedIcon style={{ color: "#fff", float:"right", cursor:"pointer"  }}/>
-            </div>
-          </div>
-      
-
-
-          <div className="card">
-            <img src="https://iconarchive.com/download/i59556/3xhumed/tools-hardware-pack-4/Sennheiser-PXC-450-Headphones.ico"/>
-            <h5>AKG Y500 Wireless Headphone</h5>
-            <div>
-              <div>
-                <span>Price:</span>
-                <p><b>5 000 hrn</b></p>
-              </div>
-              <AddBoxOutlinedIcon style={{ color: "#fff", float:"right", cursor:"pointer"  }}/>
-            </div>
-          </div>
-
-      
-
-          <div className="card">
-            <img src="https://ru.seaicons.com/wp-content/uploads/2015/07/AKG-Headphone-icon.png"/>
-            <h5>AKG Y500 Wireless Headphone</h5>
-            <div>
-              <div className="price">
-                <span>Price:</span>
-                <p><b>5 000 hrn</b></p>
-              </div>
-              <AddBoxOutlinedIcon style={{ color: "#fff", float:"right", cursor:"pointer" }}/>
-            </div>
-          </div>
-
-
-
-          <div className="card">
-            <img src="https://media.croma.com/image/upload/f_auto,q_auto,d_Croma%20Assets:no-product-image.jpg,h_256,w_256/v1605169519/Croma%20Assets/Entertainment/Headphones%20and%20Earphones/Images/8944859512862.png"/>
-            <h5>AKG Y500 Wireless Headphone</h5>
-            <div>
-              <div>
-                <span>Price:</span>
-                <p><b>5 000 hrn</b></p>
-              </div>
-              <AddBoxOutlinedIcon style={{ color: "#fff", float:"right", cursor:"pointer"  }}/>
-            </div>
-          </div>
-      
-      </div>
-
+      {cartOpen && <Overlay items={cartItems}
+                            offClickCart={() => setCartOpen(false)}
+                            onRemove = {onRemoveItem} />}
+        <Header onClickCart={() => setCartOpen(true)} />
+      <Route exact path="/">
+        <Home 
+          searchValue={searchValue}
+          onChangeSearchInput={onChangeSearchInput}
+          setSearchValue={setSearchValue}
+          onAddToFavorite={onAddToFavorite}
+          items={items}
+          onAddToCart={onAddToCart}/>
+      </Route>
+      <Route path="/favorite">
+        <Favorite   items={favorite}
+                    onAddToCart={onAddToCart}
+                    onAddToFavorite={onAddToFavorite} />
+      </Route>
     </div>
   );
 }
