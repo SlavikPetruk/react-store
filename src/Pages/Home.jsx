@@ -1,10 +1,36 @@
 import Cards from '../components/Cards/Cards'
 import SearchIcon from '@material-ui/icons/Search';
 import CloseIcon from '@material-ui/icons/Close';
+import ImageSlader from '../components/ImageSlider';
 
-function Home({searchValue,onChangeSearchInput,setSearchValue,items,onAddToCart,onAddToFavorite}) {
-    return (
+function Home({
+    searchValue,
+    onChangeSearchInput,
+    setSearchValue,
+    items,
+    cartItems,
+    onAddToCart,
+    isLoading,
+    onAddToFavorite}) {
+
+    const renderItems = () => {
+        const fiteredItems = items.filter((item2)=>item2.title.toLowerCase().includes(searchValue.toLowerCase()))
+        
+        return ( isLoading ? [...Array(8)] : fiteredItems)                
+                .map((item, index) => <Cards
+                                  key={index}
+                                  {...item} 
+                                  onFavorite={(obj) => onAddToFavorite(obj)}
+                                  onPlus={(obj) => onAddToCart(obj)} 
+                                  loading={isLoading}
+                                  added={cartItems.some(obj => Number(obj.id) === Number(items.id))}
+                                  />)
+        
+    }
+    
+        return (
     <div className="content">
+                <ImageSlader />
         <div style={{display: "flex", justifyContent:"space-between",color:"#fff", marginRight:"18px"}}>
               <div><h1 >{searchValue ? `Search Result: "${searchValue}"` : 'All Headphones'}</h1></div>
                   <div className="search-block">
@@ -13,21 +39,13 @@ function Home({searchValue,onChangeSearchInput,setSearchValue,items,onAddToCart,
                           value={searchValue} 
                           placeholder="Search ...">
                   </input>
-                  {searchValue && <CloseIcon onClick={ ()=>setSearchValue('')} className="clear"/>}
+                  {searchValue && <CloseIcon 
+                                    onClick={ ()=>setSearchValue('')} 
+                                    className="clear"/>}
               </div>
-          </div>
-          
-          
-          {items
-            .filter((item2)=>item2.title.toLowerCase().includes(searchValue.toLowerCase()))
-            .map((item, index) => <Cards
-                              key={index}
-                              image={item.image} 
-                              title={item.title} 
-                              price={item.price} 
-                              onFavorite={(obj) => onAddToFavorite(obj)}
-                              onPlus={(obj) => onAddToCart(obj)} />)}      
-        </div>
+          </div>          
+        {renderItems()}            
+    </div>
     )
 }
 export default Home;

@@ -1,24 +1,51 @@
 import React from 'react';
 import styles from './Cards.module.scss';
+import ContentLoader from "react-content-loader";
 
-function Cards({title, image, price, onPlus, onFavorite}) {
+function Cards({
+    id,
+    title,
+    image,
+    price,
+    onPlus, 
+    onFavorite, 
+    loading=false,
+    favorited=false, 
+    added=false}) {
 
-  const [isAdd, setIsAdd] = React.useState(false);
-  const [isFavorite, setIsFavorite] = React.useState(false);
+  const [isAdd, setIsAdd] = React.useState(added);
+  const [isFavorite, setIsFavorite] = React.useState(favorited);
 
   const onClickAdd = () => {
-      onPlus({title, image, price});
+      onPlus({id, title, image, price});
       setIsAdd(true)};
   
   const likeClick =() =>{
-    onFavorite ({title, image, price});
+    onFavorite ({id, title, image, price});
     setIsFavorite(!isFavorite);
   }
 
  return (
-    <div className={styles.card}>
+  <div className={styles.card}>
     
-    <div className={styles.like}>
+{ loading
+? 
+ (<ContentLoader 
+  speed={0}
+  width={400}
+  height={460}
+  viewBox="0 0 400 460"
+  backgroundColor="#f3f3f3"
+  foregroundColor="#ecebeb">
+  <rect x="0" y="0" rx="0" ry="0" width="180" height="210" /> 
+  <rect x="0" y="220" rx="0" ry="0" width="180" height="20" /> 
+  <rect x="0" y="245" rx="0" ry="0" width="100" height="20" /> 
+  <rect x="0" y="280" rx="0" ry="0" width="60" height="20" /> 
+  <rect x="0" y="305" rx="0" ry="0" width="74" height="20" /> 
+  <rect x="129" y="273" rx="0" ry="0" width="50" height="50" />
+</ContentLoader>)
+:
+(<><div className={styles.like}>
       <img  alt="like"
             width={25}
             onClick={likeClick} 
@@ -27,7 +54,7 @@ function Cards({title, image, price, onPlus, onFavorite}) {
     
     <img alt="head1" src={image} width={180}/>
     <h5>{title}</h5>
-    <div className="priceD">
+    <div className={styles.priceD}>
       <div className={styles.div1}><span>Price:</span></div>
       <div className={styles.div2}><b>{price}  hrn</b></div>
       <div className={styles.div3}><img style={{color:"#9CC", cursor:"pointer", width:"30px"}}  //className={styles.addBox}
@@ -37,7 +64,8 @@ function Cards({title, image, price, onPlus, onFavorite}) {
                           src={isAdd ? "/images/unbay.png" : "./images/buy.png"}/>
       </div>
     </div>
-    </div>
+    </>)}
+  </div>
  )
 }
 export default Cards;

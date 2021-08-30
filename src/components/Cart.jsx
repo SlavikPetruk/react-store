@@ -9,19 +9,21 @@ function Overlay ({offClickCart, onRemove, items=[]} ) {
         <div className={styles.drawer}>
           <div className={styles.titleDrawer}>
             <div><h2>Your Cart</h2></div>
-            <div><CloseIcon className={styles.CloseIcon} onClick={offClickCart}/></div>
+            <div><CloseIcon className="CloseIcon"
+                            onClick={offClickCart}/></div>
           </div>
 
       {items.length>0 ? 
         <div className={styles.items}>
           {items.map((obj) =>           
-            (<div className={styles.cartItem}>
+            (<div key={obj.id} className={styles.cartItem}>
               <img alt={styles.cart} src={obj.image}/>
               <div>
                 <p>{obj.title}</p>
                 <b>{obj.price}</b>
               </div>
-            <div><RemoveShoppingCartIcon onClick={() => onRemove(obj.id)} className={styles.removeBtn}/></div>
+            <div><RemoveShoppingCartIcon onClick={()=>onRemove(obj.id)}
+                                                      className={styles.removeBtn}/></div>
           </div>))}
         </div>
       : 
