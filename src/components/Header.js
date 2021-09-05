@@ -4,18 +4,21 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import {Link} from 'react-router-dom';
 import LoginForm from './LoginForm';
 import React from 'react';
+import { useCart } from '../hooks/useCart';
+
 
 function Header (props) {
     const [log, setLog] = React.useState(false);
     const clickLogin = () => setLog(true)
-    const closeLog = () => setLog(false)
+    const {totalPrice} = useCart()
 
     return (
         <header>
           <div className={log ? "loginHidden" : "loginBlock"}>
-          {log && <LoginForm 
-                        closeLog={() => setLog(false)}
-                      />}</div>
+              {log && <LoginForm 
+                        closeLog = {() => setLog(false)}
+                      />}
+            </div>
         <div className="headerLeft">
           <Link to="/">
            <img src="https://images.discordapp.net/avatars/711610119410024519/80efbf2dbb04b6133acf823924f2b291.png?size=128" alt="logo" style={{borderRadius:"70px"}}/>
@@ -30,7 +33,7 @@ function Header (props) {
           <ul>
             <li>
               <ShoppingCartOutlinedIcon onClick={props.onClickCart}/>
-              <span>999$</span>
+              <span>{totalPrice}$</span>
             </li>
             <li>
               <Link to="/favorite">
@@ -38,7 +41,9 @@ function Header (props) {
               </Link>            
             </li>
             <li>
-            <AccountCircleOutlinedIcon onClick={clickLogin} />
+            <Link to="/orders">
+              <AccountCircleOutlinedIcon onClick={clickLogin} />
+            </Link> 
             </li>
           </ul>
         </div>

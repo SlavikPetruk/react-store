@@ -35,20 +35,21 @@ function LoginForm (props)  {
         Login(detail);
     }
     return (
-        <div className="loginOverlay">
-            <div className="loginDiv">  
+        <div className="loginOverlay" onClick={props.closeLog}>
+            <div className="loginDiv"  onClick={(e) => e.stopPropagation()}>  
             {   (user.email !=="") 
         
             ? 
                 <div>
-                    <h2>Wellcome <span style={{color:"#456"}}>{user.name}</span></h2>
+                    <h2 style={{position:"flex"}}>Wellcome <span style={{color:"#456"}}>{user.name}</span><CloseIcon className="CloseIcon" style={{top:"-100px"}} onClick={props.closeLog}/></h2>
+                    
                     <button className="LoginBtn" onClick={Logout}>Logout</button>
                 </div>
             :
                                      
                 <form onSubmit={submitHandler}>
-                        <CloseIcon className="CloseIcon" onClick={props.closeLog}/>  
-                        <h2>Login</h2>
+                          
+                        <h2>Login <CloseIcon className="CloseIcon" onClick={props.closeLog}/></h2>
                                                                                                                                         
                         <label htmlFor="name">Name:</label>
                         <input type="name" name="name" id="name"

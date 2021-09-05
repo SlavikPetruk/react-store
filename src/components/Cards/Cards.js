@@ -1,24 +1,20 @@
 import React from 'react';
 import styles from './Cards.module.scss';
 import ContentLoader from "react-content-loader";
+import AppContext from '../../hooks/context';
 
 function Cards({
-    id,
-    title,
-    image,
-    price,
-    onPlus, 
-    onFavorite, 
-    loading=false,
-    favorited=false, 
-    added=false}) {
-
-  const [isAdd, setIsAdd] = React.useState(added);
+    id, title, image, price,
+    onPlus, onFavorite, 
+    loading = false,
+    favorited = false}) {
+      
+  const {isItemAdded} = React.useContext(AppContext)
   const [isFavorite, setIsFavorite] = React.useState(favorited);
 
-  const onClickAdd = () => {
-      onPlus({id, title, image, price});
-      setIsAdd(true)};
+  const onClickPlus = () => {
+      onPlus({id, title, image, price})
+      }
   
   const likeClick =() =>{
     onFavorite ({id, title, image, price});
@@ -32,9 +28,9 @@ function Cards({
 ? 
  (<ContentLoader 
   speed={0}
-  width={400}
-  height={460}
-  viewBox="0 0 400 460"
+  width={238}
+  height={382}
+  viewBox="0 0 238 382"
   backgroundColor="#f3f3f3"
   foregroundColor="#ecebeb">
   <rect x="0" y="0" rx="0" ry="0" width="180" height="210" /> 
@@ -45,23 +41,22 @@ function Cards({
   <rect x="129" y="273" rx="0" ry="0" width="50" height="50" />
 </ContentLoader>)
 :
-(<><div className={styles.like}>
+(<>{onFavorite && <div className={styles.like}>
       <img  alt="like"
             width={25}
             onClick={likeClick} 
             src={isFavorite ? "/images/like.png" : "/images/unlike.png"} />
-    </div>
+    </div>}
     
     <img alt="head1" src={image} width={180}/>
     <h5>{title}</h5>
     <div className={styles.priceD}>
       <div className={styles.div1}><span>Price:</span></div>
       <div className={styles.div2}><b>{price}  hrn</b></div>
-      <div className={styles.div3}><img style={{color:"#9CC", cursor:"pointer", width:"30px"}}  //className={styles.addBox}
-                          alt="add"
-                          onClick={onPlus} 
-                          onClick={onClickAdd} 
-                          src={isAdd ? "/images/unbay.png" : "./images/buy.png"}/>
+      <div className={styles.div3}>{onPlus && <img style={{color:"#9CC", cursor:"pointer", width:"30px"}}  //className={styles.addBox}
+                          alt="Plus"
+                          onClick={onClickPlus} 
+                          src={isItemAdded(id) ? "/images/unbay.png" : "./images/buy.png"}/>}
       </div>
     </div>
     </>)}

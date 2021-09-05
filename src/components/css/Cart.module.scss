@@ -4,19 +4,27 @@
     height: 100%;
     top: 0;
     left: 0;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.6);
     z-index: 1;
     backdrop-filter: blur(5px);
- 
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.5s;
+    
   .drawer {
     position:fixed;
-    height: 100%;
+    margin-top:10px;
+    height: 92%;
     right: 0;
-    width: 420px;
-    background: #fff;
-    padding: 30px;
-    //display: flex;
-    // flex-direction: column;
+    width: 380px;
+    border-radius: 15px;
+    background: rgba(256,256,256,0.8);
+    padding: 25px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    transition: all 0.3s;
+    right: -370px;
     
     .titleDrawer{
         display: flex;
@@ -24,14 +32,13 @@
 
         div {
             display: inline-block;
-
-
         }
     }
   
     .cartItem {
       display: flex;
       align-items: center;
+      background: #fff;
       border: 1px solid #f3f3f3;
       border-radius: 10px;
       box-shadow: 0 1px 4px rgba(0,0,0,0.2);
@@ -41,12 +48,12 @@
   
       p {
         font-size: 16px;
-        width: 210px;
+        width: 200px;
       }
   
       .removeBtn {
         color:#099;
-        margin-left: 50px;
+        margin-left: 15px;
         right: 0px;
         font-size: 40px;
         opacity: 0.5;
@@ -64,7 +71,6 @@
     }
   
     .summaryBlock {
-      margin-top: 100px;
     
       ul {
         padding: 5px;
@@ -72,12 +78,14 @@
         li {
           display: flex;
           align-items: flex-end;
+          font-size: 15px;
+         
     
           div{
             width: 150px;
             display:flex;
             height:1px;
-            border-bottom: 1px dashed #dfdfdf;
+            border-bottom: 1px dashed #a1a1a1;
             }
           }
         }
@@ -103,5 +111,25 @@
     margin: 150px 0;
     width: 100%;
     text-align: center;
+  }
+}
+
+.button_back {
+  width: 100%;
+  color: #fff;
+  border: 0;
+  height: 50px;
+  font-size: 16px;
+  background: #9dd558;
+  margin-top: 200px;
+  border-radius: 12px;
+}
+
+.overlayVissible {
+  visibility: visible;
+  opacity: 1;
+
+  .drawer {
+    right: 10px;
   }
 }

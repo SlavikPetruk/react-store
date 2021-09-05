@@ -1,12 +1,20 @@
 import React from 'react';
 import './css/ImageSlider.scss';
-import SliderData from './SliderData.json';
+import SliderData from './Json/SliderData.json';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 
 const ImageSlider = () => {
   
   const [slideIndex, setSlideIndex] = React.useState(1);
+
+  React.useEffect(() => {
+    if (slideIndex!== SliderData.length+1) {
+      setTimeout(() => setSlideIndex(slideIndex+1),2000)
+    } else {
+      setSlideIndex(1)
+    }
+  })
 
   const nextSlide = () => {
     if (slideIndex !== SliderData.length) {

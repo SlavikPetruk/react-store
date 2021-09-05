@@ -4,17 +4,20 @@
     height: 100%;
     left: 0;
     top: 0;
-    background-color: rgba(0,0,0,0.8);
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(5px);
     z-index: 7;
     
     .loginDiv {
-        width: 400px;
+        width: 380px;
         background: rgba(255, 255, 255, 0.8);
         color: rgb(0, 0, 0);
         padding: 10px 30px 30px 30px;
         margin: 300px auto;
         border-radius: 10px;
-        border: 2px solid rgb(31, 128, 255);
+        display: flex;
+        justify-content: center;
+        
 
         h2 {
             margin-bottom: 20px;
