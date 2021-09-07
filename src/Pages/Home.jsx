@@ -2,6 +2,7 @@ import Cards from '../components/Cards/Cards'
 import SearchIcon from '@material-ui/icons/Search';
 import CloseIcon from '@material-ui/icons/Close';
 import ImageSlader from '../components/ImageSlider';
+import Item from '../components/Item';
 import React from 'react';
 
 function Home({
@@ -13,13 +14,17 @@ function Home({
     isLoading,
     onAddToFavorite}) {
 
+    const [itemOpen, setItemOpen] = React.useState(false)
+    const onItemOpen = () => { setItemOpen(true) }
+    const onItemClose = () => { setItemOpen(false) }
+
 
     const renderItems = () => {
     const fiteredItems = items.filter((item2)=>item2.title.toLowerCase().includes(searchValue.toLowerCase()))
         
     return ( isLoading ? [...Array(8)] : fiteredItems)                
                 .map((item, index) => <Cards
-                                //   onClick={}
+                                  onItemOpen={onItemOpen}
                                   key={index}
                                   {...item} 
                                   onFavorite={(obj) => onAddToFavorite(obj)}
@@ -44,7 +49,13 @@ function Home({
                                     className="clear"/>}
               </div>
           </div>          
-        {renderItems()}            
+        {renderItems()}   
+        <Item 
+            itemOpen={itemOpen}
+            onItemClose={onItemClose}
+            // items={cartItems} 
+            // onRemove = {onRemoveItem}
+        />         
     </div>
     )
 }

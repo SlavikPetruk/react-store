@@ -7,13 +7,57 @@
     z-index: 1;
     background: rgba(0,0,0,0.6);
     backdrop-filter: blur(5px);
+    visibility:visible;
+    transition: all 0.3s;
+}
+
+.itemOverlayHidden {
+    visibility: hidden;
+    position: fixed;
 }
 
 .Item {
     width: 400px;
+    height: 400px;
     background: rgba(255, 255, 255, 0.8);
     color: rgb(0, 0, 0);
     padding: 10px 30px 30px 30px;
     margin: 300px auto;
     border-radius: 10px;
+    transition: all 0.3s;
 }
+
+.cartItem {
+    display: flex;
+    align-items: center;
+    background: rgb(97, 97, 97);
+    border: 1px solid #f3f3f3;
+    border-radius: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    height: 120px;
+    margin-top: 20px;
+    padding: 10px;
+
+    p {
+      font-size: 16px;
+      width: 200px;
+    }
+
+    .removeBtn {
+      color:#099;
+      margin-left: 15px;
+      right: 0px;
+      font-size: 40px;
+      opacity: 0.5;
+      cursor: pointer;
+      transition: opacity 0.2s ease-in-out;
+    }
+    .removeBtn:hover {
+      opacity: 1;
+    }
+
+    img {
+      width: 80px;
+      margin: 6px;
+    }
+  }

@@ -5,7 +5,7 @@ import AppContext from '../../hooks/context';
 
 function Cards({
     id, title, image, price,
-    onPlus, onFavorite, 
+    onPlus, onFavorite, onItemOpen,
     loading = false,
     favorited = false}) {
       
@@ -22,7 +22,7 @@ function Cards({
   }
 
  return (
-  <div className={styles.card}>
+  <div className={styles.card} >
     
 { loading
 ? 
@@ -48,9 +48,9 @@ function Cards({
             src={isFavorite ? "/images/like.png" : "/images/unlike.png"} />
     </div>}
     
-    <img alt="head1" src={image} width={180}/>
+    <img alt="head1" src={image} width={180} onClick={onItemOpen}/>
     <h5>{title}</h5>
-    <div className={styles.priceD}>
+    <div className={styles.priceD}  onClick={onItemOpen}>
       <div className={styles.div1}><span>Price:</span></div>
       <div className={styles.div2}><b>{price}  hrn</b></div>
       <div className={styles.div3}>{onPlus && <img style={{color:"#9CC", cursor:"pointer", width:"30px"}}  //className={styles.addBox}
